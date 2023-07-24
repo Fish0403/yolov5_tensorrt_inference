@@ -11,6 +11,7 @@ CUDNN 8.6.0
 使用Yolov5代码中的export.py导出engine模型，更改batchsize  
 ```python
 parser.add_argument('--batch-size', type=int, default=8, help='batch size')
+```
 下面是转换好的模型链接  
 链接：https://pan.baidu.com/s/1RlGhxdWV4Zo_U5vDdKDQVQ  
 提取码：zj6l  
