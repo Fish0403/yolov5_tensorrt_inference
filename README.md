@@ -1,11 +1,13 @@
 # yolo_tensorrt_inference
 yolov5的TensorRT推理，支持单张推理和多图推理。  
-## 本机环境配置
-RTX 4070 12GB  
+
+## 代码运行环境
+RTX 4070 12GB (40系显卡需要cuda11.8以上)   
 TensorRT 8.5.3  
-OpenCV4.5.5  
 CUDA 11.8   
 CUDNN 8.6.0  
+OpenCV4.5.5  
+配置步骤：https://www.cnblogs.com/Fish0403/p/15781888.html  
 
 ## 模型转换
 使用Yolov5代码中的export.py导出engine模型，更改batchsize  
@@ -27,5 +29,5 @@ yolov5、v7和v8的dnn推理项目：https://github.com/Fish0403/yolo_dnn_infere
 |--------|------|------|------|
 | dnn   | 8ms   | 2.1GB   |    |
 | tensorrt   | 4ms   | 1.3GB   | 16ms   |  
-<img src="yolo_trt/results/bus.jpg" alt="yolov5" width="500">
+<img src="yolo_trt/results/bus.jpg" alt="yolov5">
 
