@@ -14,7 +14,7 @@ OpenCV4.5.5
 ```python
 parser.add_argument('--batch-size', type=int, default=8, help='batch size')
 ```
-下面是转换好的模型链接  
+下面是40系显卡转换好的模型链接，不同算力显卡不通用    
 链接：https://pan.baidu.com/s/1RlGhxdWV4Zo_U5vDdKDQVQ  
 提取码：zj6l  
 
@@ -25,7 +25,7 @@ yolov5、v7和v8的dnn推理项目：https://github.com/Fish0403/yolo_dnn_infere
 
 
 ### 效果展示
-| 姓名   | 单图推理时间 | 单图显存 | 多图时间 |
+|    | 单图推理时间 | 单图显存 | 多图时间 |
 |--------|------|------|------|
 | dnn   | 8ms   | 2.1GB   |    |
 | tensorrt   | 4ms   | 1.3GB   | 16ms   |  
