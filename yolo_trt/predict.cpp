@@ -24,10 +24,10 @@ Mat formatToSquare(const Mat& source)
 
 bool readEngine(string& engine_name, int device_id) {
     try {
-        // ÉèÖÃGPU
+        // è®¾ç½®GPU
         cudaSetDevice(device_id);
 
-        // ´Ó±¾µØ¶ÁÈ¡engineÄ£ĞÍÎÄ¼ş
+        // ä»æœ¬åœ°è¯»å–engineæ¨¡å‹æ–‡ä»¶
         std::ifstream file(engine_name, std::ios::binary);
         if (!file.good()) {
             std::cerr << "read " << engine_name << " error!" << std::endl;
@@ -42,13 +42,13 @@ bool readEngine(string& engine_name, int device_id) {
         file.read(serialized_engine, size);
         file.close();
 
-        // ´´½¨ÍÆÀíÔËĞĞ»·¾³ÊµÀı
+        // åˆ›å»ºæ¨ç†è¿è¡Œç¯å¢ƒå®ä¾‹
         runtime = createInferRuntime(gLogger);
         assert(runtime);
-        // ·´ĞòÁĞ»¯Ä£ĞÍ
+        // ååºåˆ—åŒ–æ¨¡å‹
         engine = runtime->deserializeCudaEngine(serialized_engine, size);
         assert(engine);
-        // ´´½¨ÍÆÀíÉÏÏÂÎÄ
+        // åˆ›å»ºæ¨ç†ä¸Šä¸‹æ–‡
         context = engine->createExecutionContext();
         assert(context);
         delete[] serialized_engine;
@@ -101,7 +101,7 @@ void inference(const Mat img, vector<Detection>& detections) {
     //Mat blob = cv::dnn::blobFromImage(dst, 1.0 / 255, Size(640, 640), Scalar(0, 0, 0), true);
 
     resize(tmp, tmp, Size(640, 640));
-    tmp.convertTo(tmp, CV_32FC1, 1.0 / 255);
+    tmp.convertTo(tmp, CV_32FC3, 1.0 / 255);
     for (int r = 0; r < kInputH; r++)
     {
         const float* rowData = tmp.ptr<float>(r);
@@ -276,7 +276,7 @@ void gpuMemoryRelease()
 }
 
 int main() {
-    //Éú³ÉËæ»úÑÕÉ«
+    //ç”Ÿæˆéšæœºé¢œè‰²
     vector<Scalar> color;
     srand(time(0));
     for (int i = 0; i < kNumClass; i++) {
@@ -286,7 +286,7 @@ int main() {
         color.push_back(Scalar(b, g, r));
     }
 
-   // µ¥Í¼ÍÆÀí
+   // å•å›¾æ¨ç†
     string engine_name = "models/yolov5s.engine";
     bool isOK = readEngine(engine_name, 0);
     Mat img = imread("images/bus.jpg");
@@ -295,7 +295,7 @@ int main() {
     drawPred(img, detections, color);
     imwrite("results/yolov5.jpg", img);
 
-    // ÅúÁ¿ÍÆÀí 
+    // æ‰¹é‡æ¨ç† 
    /* string engine_name = "models/yolov5s_batch8.engine";
     bool isOK = readEngine(engine_name, 0); 
     if (!isOK) {
@@ -326,7 +326,7 @@ int main() {
         inference_batch(images, detections);
         auto end = chrono::high_resolution_clock::now();
         auto duration = chrono::duration_cast<chrono::milliseconds>(end - start);
-        cout << "Ö´ĞĞÊ±¼ä: " << duration.count() << "ms" << endl;
+        cout << "æ‰§è¡Œæ—¶é—´: " << duration.count() << "ms" << endl;
         for (int j = 0; j < kBatchSize; j++) {
             index = i + j;
             if (index < filenames.size()) {
